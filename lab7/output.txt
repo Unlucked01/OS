@@ -1,0 +1,6 @@
+  PID TTY           TIME CMD
+23316 ttys004    0:00.27 /bin/zsh -il
+23663 ttys004    0:00.01 sh ./run.sh 1
+  PID TTY           TIME CMD
+23316 ttys004    0:00.27 /bin/zsh -il
+23663 ttys004    0:00.01 sh ./run.sh 1

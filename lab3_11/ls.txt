@@ -1,0 +1,5 @@
+total 16
+-rw-r--r--  1 unlucked  staff  702 Sep 12 17:49 lab3.txt
+drwxr-xr-x  2 unlucked  staff   64 Sep 12 18:11 lab3_11
+-rw-r--r--  1 unlucked  staff    0 Sep 12 18:17 ls.txt
+-rw-r--r--  1 unlucked  staff  323 Sep 12 18:14 test.txt
