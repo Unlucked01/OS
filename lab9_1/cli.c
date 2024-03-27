@@ -4,40 +4,29 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <string.h>
-#include <unistd.h>
 
-#define MSG_SIZE 256
-
-struct msg_buffer {
-    long msg_type;
-    int msg_text;
+struct msgbuf {
+    long mtype;
+    char mtext[100];
 };
 
 int main() {
-    key_t key = ftok("oslab3server.out", 0);
+    key_t key;
+    int msgid;
+    struct msgbuf message;
 
-	if (key == (key_t)-1)
-		return 2;
+    key = ftok("server.c", 'A');
 
-	int queue = msgget(key, IPC_CREAT | 0600);
+    msgid = msgget(key, 0664);
+    if (msgid == -1) {
+        perror("Error accessing message queue");
+        exit(EXIT_FAILURE);
+    }
 
-	if (queue == -1)
-		return 3;
-
-	struct msg_buffer msg;
-	msg.msg_text = 1;
-
-	for (;;) {
-		sleep(1);
-
-		if (msgsnd(queue, &msg, 0, 0) == -1)
-			return 4;
-
-		if (msgrcv(queue, &msg, sizeof(msg.msg_text), 0, 0) == -1)
-			return 5;
-
-		printf("Number of users in system: %i\n", msg.msg_text);
+	for(;;) {
+		msgrcv(msgid, &message, sizeof(message.mtext), 1, 0);
+		printf("Client received: %d\n", atoi(message.mtext));	
 	}
 
-	return 0;
+    return 0;
 }
